@@ -1,0 +1,686 @@
+[
+    {
+        "time": 2253,
+        "noteNum": 1
+    },
+    {
+        "time": 2959,
+        "noteNum": 1
+    },
+    {
+        "time": 3665,
+        "noteNum": 2
+    },
+    {
+        "time": 4371,
+        "noteNum": 2
+    },
+    {
+        "time": 5077,
+        "noteNum": 0
+    },
+    {
+        "time": 5783,
+        "noteNum": 0
+    },
+    {
+        "time": 6489,
+        "noteNum": 1
+    },
+    {
+        "time": 7195,
+        "noteNum": 3
+    },
+    {
+        "time": 7901,
+        "noteNum": 2
+    },
+    {
+        "time": 8607,
+        "noteNum": 0
+    },
+    {
+        "time": 9313,
+        "noteNum": 0
+    },
+    {
+        "time": 10019,
+        "noteNum": 1
+    },
+    {
+        "time": 10725,
+        "noteNum": 0
+    },
+    {
+        "time": 11078,
+        "noteNum": 1
+    },
+    {
+        "time": 11431,
+        "noteNum": 1
+    },
+    {
+        "time": 11784,
+        "noteNum": 3
+    },
+    {
+        "time": 12137,
+        "noteNum": 2
+    },
+    {
+        "time": 12490,
+        "noteNum": 3
+    },
+    {
+        "time": 12843,
+        "noteNum": 2
+    },
+    {
+        "time": 13196,
+        "noteNum": 0
+    },
+    {
+        "time": 13549,
+        "noteNum": 2
+    },
+    {
+        "time": 14255,
+        "noteNum": 0
+    },
+    {
+        "time": 14961,
+        "noteNum": 0
+    },
+    {
+        "time": 15667,
+        "noteNum": 1
+    },
+    {
+        "time": 16020,
+        "noteNum": 2
+    },
+    {
+        "time": 16373,
+        "noteNum": 2
+    },
+    {
+        "time": 17079,
+        "noteNum": 1
+    },
+    {
+        "time": 17785,
+        "noteNum": 3
+    },
+    {
+        "time": 18491,
+        "noteNum": 0
+    },
+    {
+        "time": 18844,
+        "noteNum": 3
+    },
+    {
+        "time": 19197,
+        "noteNum": 3
+    },
+    {
+        "time": 19550,
+        "noteNum": 2
+    },
+    {
+        "time": 19903,
+        "noteNum": 2
+    },
+    {
+        "time": 20256,
+        "noteNum": 1
+    },
+    {
+        "time": 20609,
+        "noteNum": 2
+    },
+    {
+        "time": 20962,
+        "noteNum": 3
+    },
+    {
+        "time": 21315,
+        "noteNum": 2
+    },
+    {
+        "time": 21668,
+        "noteNum": 0
+    },
+    {
+        "time": 22021,
+        "noteNum": 1
+    },
+    {
+        "time": 22374,
+        "noteNum": 3
+    },
+    {
+        "time": 22727,
+        "noteNum": 1
+    },
+    {
+        "time": 23080,
+        "noteNum": 0
+    },
+    {
+        "time": 23433,
+        "noteNum": 2
+    },
+    {
+        "time": 23786,
+        "noteNum": 2
+    },
+    {
+        "time": 24139,
+        "noteNum": 2
+    },
+    {
+        "time": 24492,
+        "noteNum": 3
+    },
+    {
+        "time": 24845,
+        "noteNum": 0
+    },
+    {
+        "time": 25551,
+        "noteNum": 0
+    },
+    {
+        "time": 26257,
+        "noteNum": 1
+    },
+    {
+        "time": 26610,
+        "noteNum": 2
+    },
+    {
+        "time": 26963,
+        "noteNum": 1
+    },
+    {
+        "time": 27669,
+        "noteNum": 1
+    },
+    {
+        "time": 28375,
+        "noteNum": 3
+    },
+    {
+        "time": 29081,
+        "noteNum": 3
+    },
+    {
+        "time": 29434,
+        "noteNum": 3
+    },
+    {
+        "time": 29787,
+        "noteNum": 0
+    },
+    {
+        "time": 30493,
+        "noteNum": 1
+    },
+    {
+        "time": 30846,
+        "noteNum": 1
+    },
+    {
+        "time": 31199,
+        "noteNum": 1
+    },
+    {
+        "time": 31552,
+        "noteNum": 2
+    },
+    {
+        "time": 31905,
+        "noteNum": 3
+    },
+    {
+        "time": 32258,
+        "noteNum": 2
+    },
+    {
+        "time": 32611,
+        "noteNum": 3
+    },
+    {
+        "time": 33317,
+        "noteNum": 0
+    },
+    {
+        "time": 33670,
+        "noteNum": 0
+    },
+    {
+        "time": 34023,
+        "noteNum": 1
+    },
+    {
+        "time": 34376,
+        "noteNum": 2
+    },
+    {
+        "time": 34729,
+        "noteNum": 3
+    },
+    {
+        "time": 35082,
+        "noteNum": 1
+    },
+    {
+        "time": 35435,
+        "noteNum": 0
+    },
+    {
+        "time": 36141,
+        "noteNum": 1
+    },
+    {
+        "time": 36847,
+        "noteNum": 2
+    },
+    {
+        "time": 37553,
+        "noteNum": 0
+    },
+    {
+        "time": 38259,
+        "noteNum": 3
+    },
+    {
+        "time": 38965,
+        "noteNum": 1
+    },
+    {
+        "time": 39318,
+        "noteNum": 0
+    },
+    {
+        "time": 39671,
+        "noteNum": 2
+    },
+    {
+        "time": 40024,
+        "noteNum": 3
+    },
+    {
+        "time": 40377,
+        "noteNum": 1
+    },
+    {
+        "time": 41083,
+        "noteNum": 2
+    },
+    {
+        "time": 41436,
+        "noteNum": 2
+    },
+    {
+        "time": 41789,
+        "noteNum": 0
+    },
+    {
+        "time": 42495,
+        "noteNum": 2
+    },
+    {
+        "time": 42848,
+        "noteNum": 0
+    },
+    {
+        "time": 43201,
+        "noteNum": 2
+    },
+    {
+        "time": 43554,
+        "noteNum": 3
+    },
+    {
+        "time": 43907,
+        "noteNum": 1
+    },
+    {
+        "time": 44260,
+        "noteNum": 0
+    },
+    {
+        "time": 44613,
+        "noteNum": 1
+    },
+    {
+        "time": 44966,
+        "noteNum": 3
+    },
+    {
+        "time": 45319,
+        "noteNum": 2
+    },
+    {
+        "time": 45672,
+        "noteNum": 0
+    },
+    {
+        "time": 46025,
+        "noteNum": 2
+    },
+    {
+        "time": 46731,
+        "noteNum": 1
+    },
+    {
+        "time": 47437,
+        "noteNum": 3
+    },
+    {
+        "time": 48143,
+        "noteNum": 3
+    },
+    {
+        "time": 48849,
+        "noteNum": 0
+    },
+    {
+        "time": 49555,
+        "noteNum": 0
+    },
+    {
+        "time": 50261,
+        "noteNum": 2
+    },
+    {
+        "time": 50614,
+        "noteNum": 2
+    },
+    {
+        "time": 50967,
+        "noteNum": 1
+    },
+    {
+        "time": 51320,
+        "noteNum": 1
+    },
+    {
+        "time": 51673,
+        "noteNum": 0
+    },
+    {
+        "time": 52379,
+        "noteNum": 3
+    },
+    {
+        "time": 53085,
+        "noteNum": 0
+    },
+    {
+        "time": 53791,
+        "noteNum": 0
+    },
+    {
+        "time": 54497,
+        "noteNum": 0
+    },
+    {
+        "time": 55203,
+        "noteNum": 0
+    },
+    {
+        "time": 55556,
+        "noteNum": 3
+    },
+    {
+        "time": 55909,
+        "noteNum": 1
+    },
+    {
+        "time": 56615,
+        "noteNum": 2
+    },
+    {
+        "time": 57321,
+        "noteNum": 0
+    },
+    {
+        "time": 57674,
+        "noteNum": 3
+    },
+    {
+        "time": 58027,
+        "noteNum": 1
+    },
+    {
+        "time": 58380,
+        "noteNum": 0
+    },
+    {
+        "time": 59086,
+        "noteNum": 3
+    },
+    {
+        "time": 59439,
+        "noteNum": 2
+    },
+    {
+        "time": 59792,
+        "noteNum": 0
+    },
+    {
+        "time": 60498,
+        "noteNum": 3
+    },
+    {
+        "time": 60851,
+        "noteNum": 3
+    },
+    {
+        "time": 61204,
+        "noteNum": 3
+    },
+    {
+        "time": 61557,
+        "noteNum": 0
+    },
+    {
+        "time": 61910,
+        "noteNum": 1
+    },
+    {
+        "time": 62263,
+        "noteNum": 3
+    },
+    {
+        "time": 62616,
+        "noteNum": 2
+    },
+    {
+        "time": 62969,
+        "noteNum": 0
+    },
+    {
+        "time": 63675,
+        "noteNum": 2
+    },
+    {
+        "time": 64028,
+        "noteNum": 3
+    },
+    {
+        "time": 64381,
+        "noteNum": 1
+    },
+    {
+        "time": 64734,
+        "noteNum": 0
+    },
+    {
+        "time": 65087,
+        "noteNum": 2
+    },
+    {
+        "time": 65440,
+        "noteNum": 3
+    },
+    {
+        "time": 65793,
+        "noteNum": 1
+    },
+    {
+        "time": 66320,
+        "noteNum": 0
+    },
+    {
+        "time": 67205,
+        "noteNum": 1
+    },
+    {
+        "time": 67911,
+        "noteNum": 2
+    },
+    {
+        "time": 68617,
+        "noteNum": 0
+    },
+    {
+        "time": 69323,
+        "noteNum": 3
+    },
+    {
+        "time": 70029,
+        "noteNum": 1
+    },
+    {
+        "time": 70382,
+        "noteNum": 0
+    },
+    {
+        "time": 70735,
+        "noteNum": 2
+    },
+    {
+        "time": 71088,
+        "noteNum": 3
+    },
+    {
+        "time": 71441,
+        "noteNum": 1
+    },
+    {
+        "time": 72147,
+        "noteNum": 1
+    },
+    {
+        "time": 72853,
+        "noteNum": 0
+    },
+    {
+        "time": 73206,
+        "noteNum": 1
+    },
+    {
+        "time": 73559,
+        "noteNum": 3
+    },
+    {
+        "time": 73912,
+        "noteNum": 2
+    },
+    {
+        "time": 74265,
+        "noteNum": 3
+    },
+    {
+        "time": 74618,
+        "noteNum": 1
+    },
+    {
+        "time": 74971,
+        "noteNum": 0
+    },
+    {
+        "time": 75324,
+        "noteNum": 0
+    },
+    {
+        "time": 75677,
+        "noteNum": 3
+    },
+    {
+        "time": 76383,
+        "noteNum": 3
+    },
+    {
+        "time": 77089,
+        "noteNum": 3
+    },
+    {
+        "time": 77795,
+        "noteNum": 3
+    },
+    {
+        "time": 78501,
+        "noteNum": 1
+    },
+    {
+        "time": 79207,
+        "noteNum": 1
+    },
+    {
+        "time": 79913,
+        "noteNum": 2
+    },
+    {
+        "time": 80619,
+        "noteNum": 2
+    },
+    {
+        "time": 80972,
+        "noteNum": 3
+    },
+    {
+        "time": 81678,
+        "noteNum": 0
+    },
+    {
+        "time": 82384,
+        "noteNum": 0
+    },
+    {
+        "time": 83090,
+        "noteNum": 0
+    },
+    {
+        "time": 83796,
+        "noteNum": 0
+    },
+    {
+        "time": 84149,
+        "noteNum": 3
+    },
+    {
+        "time": 85208,
+        "noteNum": 2
+    },
+    {
+        "time": 85561,
+        "noteNum": 1
+    },
+    {
+        "time": 86620,
+        "noteNum": 3
+    },
+    {
+        "time": 86973,
+        "noteNum": 0
+    },
+    {
+        "time": -1,
+        "noteNum": -1
+    }
+]
