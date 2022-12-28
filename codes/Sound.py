@@ -20,4 +20,3 @@ class sound:
         else:
             self.muted = False
             self.clicked = False
-        # pygame.mixer.Sound.set_volume(0)
