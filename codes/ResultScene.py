@@ -1,6 +1,4 @@
 import pygame
-import cv2 as cv
-import mediapipe as mp
 
 # init parameters of resources
 WIDTH = 1280
@@ -9,10 +7,10 @@ ORIGIN = (0, 0)
 COLOR_WHITE = (255, 255, 255)
 COLOR_BLACK = (0, 0, 0)
 COLOR_GRAY = (100, 100, 100)
-_result_bg = 'resources/ResultScene_BG.png'
-_result_bgFilter = 'resources/ResultScene_BGFilter.png'
-_result_title = 'resources/ResultScene_ResultTitle.png'
-_result_box = 'resources/ResultScene_ResultBox.png'
+_result_bg = '../resources/ResultScene_BG.png'
+_result_bgFilter = '../resources/ResultScene_BGFilter.png'
+_result_title = '../resources/ResultScene_ResultTitle.png'
+_result_box = '../resources/ResultScene_ResultBox.png'
 MAX_SCORE = 100000
 DELAY_TIME = 30
 ANIMATION_FRAME = 12
@@ -24,19 +22,25 @@ test_miss = 12
 
 
 
-def ResetScreen():
-    screen.blit(result_bg, ORIGIN)
-    screen.blit(result_bgFilter, ORIGIN)
+def ResetScreen(_screen):
+    _screen.blit(result_bg, ORIGIN)
+    _screen.blit(result_bgFilter, ORIGIN)
     pygame.display.update()
 
 
 
-def StartResultScene(_songName, _perfect, _miss):
+def StartResultScene(_screen, _songName, _perfect, _miss):
     # init resources
     score = MAX_SCORE/(_perfect+_miss)*_perfect + -100*_miss
     if(score < 0):
         score = 0
     result_resources = []
+    global result_bg
+    result_bg = pygame.image.load(_result_bg).convert_alpha()
+    result_bg = pygame.transform.smoothscale(result_bg, (WIDTH, HEIGHT))
+    global result_bgFilter
+    result_bgFilter = pygame.image.load(_result_bgFilter).convert_alpha()
+    result_bgFilter = pygame.transform.smoothscale(result_bgFilter, (WIDTH, HEIGHT))
     result_title = pygame.image.load(_result_title).convert_alpha()
     result_title = pygame.transform.smoothscale(result_title, (WIDTH, HEIGHT))
     result_box = pygame.image.load(_result_box).convert_alpha()
@@ -69,14 +73,14 @@ def StartResultScene(_songName, _perfect, _miss):
     # title image
     result_resources.append(result_title)
     # title text
-    txt_font = pygame.font.Font('fonts/nasalization/nasalization-rg.otf', result_txt[0][1])
+    txt_font = pygame.font.Font('../fonts/nasalization/nasalization-rg.otf', result_txt[0][1])
     msg = txt_font.render(result_txt[0][0], True, COLOR_WHITE)
     result_resources.append(msg)
     # box
     result_resources.append(result_box)
     # texts
     for i in range(1, len(result_txt)):
-        txt_font = pygame.font.Font('fonts/nasalization/nasalization-rg.otf', result_txt[i][1])
+        txt_font = pygame.font.Font('../fonts/nasalization/nasalization-rg.otf', result_txt[i][1])
         msg = txt_font.render(result_txt[i][0], True, COLOR_WHITE)
         result_resources.append(msg)
 
@@ -90,13 +94,13 @@ def StartResultScene(_songName, _perfect, _miss):
 
         # moving
         if(x <= result_positions[index][0]):
-            ResetScreen()
+            ResetScreen(_screen)
 
             # the loaded resources
             for i in range(index):
-                screen.blit(result_resources[i], result_positions[i])
+                _screen.blit(result_resources[i], result_positions[i])
             # the loading resource
-            screen.blit(result_resources[index], (x, y))
+            _screen.blit(result_resources[index], (x, y))
             pygame.display.update()
 
             # adjust position
@@ -132,14 +136,14 @@ def StartResultScene(_songName, _perfect, _miss):
 
         # moving
         if(alpha < 255):
-            ResetScreen()
+            ResetScreen(_screen)
 
             # the loaded resources
             for i in range(index):
-                screen.blit(result_resources[i], result_positions[i])
+                _screen.blit(result_resources[i], result_positions[i])
             # the loading resource
             result_resources[index].set_alpha(alpha)
-            screen.blit(result_resources[index], result_positions[index])
+            _screen.blit(result_resources[index], result_positions[index])
             pygame.display.update()
 
             # adjust transparency
@@ -168,9 +172,9 @@ def StartResultScene(_songName, _perfect, _miss):
                 alpha = 0
 
     # done loading
-    ResetScreen()
+    ResetScreen(_screen)
     for i in range(len(result_resources)):
-        screen.blit(result_resources[i], result_positions[i])
+        _screen.blit(result_resources[i], result_positions[i])
     pygame.display.update()
     # wait until player wanna go to the next scene
     run = True
@@ -202,30 +206,19 @@ if(__name__ == "__main__"):
     pygame.display.set_caption('Result Scene (Test)')
 
     # init resources
-    # global result_bg
     result_bg = pygame.image.load(_result_bg).convert_alpha()
     result_bg = pygame.transform.smoothscale(result_bg, (WIDTH, HEIGHT))
-    # global result_bgFilter
     result_bgFilter = pygame.image.load(_result_bgFilter).convert_alpha()
     result_bgFilter = pygame.transform.smoothscale(result_bgFilter, (WIDTH, HEIGHT))
 
     # init standby scene for test
-    ResetScreen()
+    ResetScreen(screen)
     msg_font = pygame.font.SysFont('arial', 40)
     msg1 = msg_font.render('SPACE: start test', True, COLOR_WHITE)
     msg2 = msg_font.render('ESE to exit', True, COLOR_WHITE)
     screen.blit(msg1, (20, 100))
     screen.blit(msg2, (20, 200))
     pygame.display.update()
-
-    # def parameters of mediapipe
-    mp_drawing = mp.solutions.drawing_utils
-    mp_drawing_styles = mp.solutions.drawing_styles
-    mp_hands = mp.solutions.hands
-
-    # For webcam input:
-    # global cap
-    cap = cv.VideoCapture(0)
 
     # loop: standby scene for test
     run = True
@@ -240,8 +233,7 @@ if(__name__ == "__main__"):
                 run = False
 
     # start test
-    StartResultScene(test_name, test_perfect, test_miss)
+    StartResultScene(screen, test_name, test_perfect, test_miss)
 
     pygame.quit()
-    cap.release()
     exit()
