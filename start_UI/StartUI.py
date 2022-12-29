@@ -74,8 +74,10 @@ run = True
 while run:
     
     if game_paused == True:
+        # black panel
         if black_button.draw(screen):
             pass
+        # music button
         if music_button.draw(screen):
             if music_muted == False:
                 play_sound()
@@ -87,13 +89,17 @@ while run:
                 music_muted = False
         # if sound_button.draw(screen):
 
+        # close panel button
         if back_button.draw(screen):
             game_paused = False
             print('BACK')
+        # exit game button
         if exit_button.draw(screen):
             print('EXIT')
             run = False
     else:
+        screen.blit(background_image, (0, 0))
+        # start button
         if start_buttun.draw(screen):
             #擺遊戲介面進去
             
@@ -101,6 +107,7 @@ while run:
             pygame.mixer.music.pause()
             print('START')
 
+        # setting button
         if settings_button.draw(screen):
             # screen.blit(background_image,(0,0))
             play_sound()
