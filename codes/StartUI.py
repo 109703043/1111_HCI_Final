@@ -1,6 +1,7 @@
 import pygame 
 import button
 import Sound
+import ResultScene
 # def main():
 
 #初始化遊戲
@@ -109,6 +110,8 @@ while run:
             #背景音樂關閉
             pygame.mixer.music.pause()
             print('START')
+
+            ResultScene.StartResultScene(screen, 'KICK BACK', 123, 55)
 
         if settings_button.draw(screen):
             sound_.play()
