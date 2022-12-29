@@ -58,9 +58,6 @@ game_paused = False
 #Music variables
 music_muted = False
 
-#settings is active or not
-isActive = False
-
 #背景音樂
 musicName = '../resources/群青.mp3'
 pygame.mixer.music.load(musicName)
@@ -73,10 +70,13 @@ sound_ = Sound.sound(soundName)
 
 #畫面
 run = True
+clickTime = 0
 while run:
-    
+
+    screen.blit(background_image,(0,0))
+
+    # settings panel on
     if game_paused == True:
-        screen.blit(background_image,(0,0))
         if black_button.draw(screen):
             pass
         if music_button.draw(screen):
@@ -96,27 +96,29 @@ while run:
             screen.blit(background_image,(0,0))
             sound_.play()
             game_paused = False
+            clickTime = pygame.time.get_ticks()
         
         if exit_button.draw(screen):
             sound_.play()
             run = False
+    # settings panel off
     else:
-
-        if isActive == False:
-            if start_buttun.draw(screen):
-                #擺遊戲介面進去
-                
-                #背景音樂關閉
-                pygame.mixer.music.pause()
-                print('START')
+        if start_buttun.draw(screen) and clickTime == 0:
+            #擺遊戲介面進去
+            
+            #背景音樂關閉
+            pygame.mixer.music.pause()
+            print('START')
 
         if settings_button.draw(screen):
-            isActive = True
-            # screen.blit(background_image,(0,0))
             sound_.play()
             game_paused = True
     
     pygame.display.update()
+
+    # click time
+    if(pygame.time.get_ticks()-clickTime > 1000):
+        clickTime = 0
 
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
