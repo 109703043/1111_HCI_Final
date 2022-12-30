@@ -1,5 +1,6 @@
 music:
 https://www.youtube.com/watch?v=LJBHySglLXU
+https://www.youtube.com/watch?v=Y4nEEZwckuU&ab_channel=Ayase%2FYOASOBI
 
 Tribal dry drum:
 https://mixkit.co/free-sound-effects/tap/
@@ -9,3 +10,10 @@ https://www.pngwing.com/en/free-png-peuuv
 
 button:
 https://pixabay.com/sound-effects/interface-124464/
+
+img:
+https://baike.baidu.hk/item/%E5%85%AB%E5%88%86%E9%9F%B3%E7%AC%A6/6786714
+https://zh.vpnclub.cc/chrome-vol-fix/
+https://uxwing.com/exit-button-icon/
+https://uxwing.com/back-button-icon/
+https://www.pngall.com/start-button-png/download/77888

@@ -64,7 +64,7 @@ music_muted = False
 musicName = '../resources/群青.mp3'
 pygame.mixer.music.load(musicName)
 pygame.mixer.music.play(3)
-pygame.mixer.music.set_volume(0.2)
+pygame.mixer.music.set_volume(0.1)
 
 #音效
 soundName = "../resources/button01.mp3"
