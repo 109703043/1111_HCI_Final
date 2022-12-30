@@ -25,7 +25,6 @@ test_miss = 12
 def ResetScreen(_screen):
     _screen.blit(result_bg, ORIGIN)
     _screen.blit(result_bgFilter, ORIGIN)
-    pygame.display.update()
 
 
 

@@ -2,6 +2,7 @@ import pygame
 import button
 import Sound
 import ResultScene
+import SelectSongScene
 # def main():
 
 #初始化遊戲
@@ -87,7 +88,7 @@ while run:
                 music_muted = True
             else:                
                 sound_.play()
-                pygame.mixer.music.set_volume(100)
+                pygame.mixer.music.set_volume(0.2)
                 music_muted = False
         if sound_button.draw(screen):
             sound_.play()
@@ -111,7 +112,9 @@ while run:
             pygame.mixer.music.pause()
             print('START')
 
-            ResultScene.StartResultScene(screen, 'KICK BACK', 123, 55)
+            SelectSongScene.StartSelectSongScene(screen)
+            pygame.mixer.music.play(3)
+            pygame.mixer.music.set_volume(0.2)
 
         if settings_button.draw(screen):
             sound_.play()
