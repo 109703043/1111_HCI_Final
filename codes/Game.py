@@ -9,14 +9,14 @@ from pygame.locals import *
 import HandDetection as hand_detection
 
 
-musicName = "./resources/music01.mp3"
-soundName = "./resources/soundDrum.wav"
-noteName = "./resources/circle.png"
-fileName = "./data/data.json"
-movingNoteName = "./resources/circular-arrow_small.png"
-backgroudName = "./resources/background_combined_2.png"
-ciecleName = "./resources/circle_2.png"
-width = 1200
+musicName = "../resources/music01.mp3"
+soundName = "../resources/soundDrum.wav"
+noteName = "../resources/circle.png"
+fileName = "../data/data.json"
+movingNoteName = "../resources/circular-arrow_small.png"
+backgroudName = "../resources/background_combined_2.png"
+ciecleName = "../resources/circle_2.png"
+width = 1280
 height = 720
 bg = (255, 255, 255)
 NOTE_SIZE = 200
@@ -137,7 +137,7 @@ def main():
     background = pygame.transform.smoothscale(background, (width, height))
 
     global handpic
-    handpic = pygame.image.load("./resources/hand_small.png")
+    handpic = pygame.image.load("../resources/hand_small.png")
     handpic = pygame.transform.smoothscale(handpic, (150, 150))
     handpic.convert_alpha()
     handpicRect = handpic.get_rect()   
@@ -156,6 +156,7 @@ def main():
     rect_3 = pygame.Rect(0, 0, NOTE_SIZE, NOTE_SIZE)        #下
     rect_3.center = (width/2, height/2+NOTE_SIZE)
 
+    #可以改成選歌畫面
     screen.fill(bg)
     msg_font = pygame.font.SysFont("DFKai-SB", 40)
     msg1 = msg_font.render("space to play music", True, (100, 100, 100))
@@ -166,6 +167,7 @@ def main():
 
     global drum
     pygame.mixer.music.load(musicName)
+    pygame.mixer.music.set_volume(0.1)
     drum = pygame.mixer.Sound(soundName)
     startTime = 0
 
@@ -182,7 +184,6 @@ def main():
     )
     movingNote.convert_alpha()
     position = movingNote.get_rect()
-
     run = True
     while run:
         for event in pygame.event.get():
@@ -273,6 +274,7 @@ def main():
             pygame.display.update()
 
         if not pygame.mixer.music.get_busy():
+            #可以加上結算畫面
             pygame.quit()
             exit()
         
@@ -284,7 +286,7 @@ def main():
     file.close()
 
     pygame.quit()
-    exit()
+#    exit()
 
 
-main()
+#main()
