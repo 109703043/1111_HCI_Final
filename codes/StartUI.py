@@ -3,6 +3,7 @@ import button
 import Sound
 import ResultScene
 import SelectSongScene
+import Game as game
 # def main():
 
 #初始化遊戲
@@ -107,7 +108,7 @@ while run:
     else:
         if start_buttun.draw(screen) and clickTime == 0:
             #擺遊戲介面進去
-            
+            game.main()
             #背景音樂關閉
             pygame.mixer.music.pause()
             print('START')
@@ -115,6 +116,7 @@ while run:
             SelectSongScene.StartSelectSongScene(screen)
             pygame.mixer.music.play(3)
             pygame.mixer.music.set_volume(0.2)
+
 
         if settings_button.draw(screen):
             sound_.play()
