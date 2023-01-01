@@ -7,6 +7,9 @@ import cv2 as cv
 import numpy as np
 from pygame.locals import *
 import HandDetection as hand_detection
+import SelectSongScene
+import ResultScene
+import button
 
 
 musicName = "../resources/music01.mp3"
@@ -16,6 +19,8 @@ fileName = "../data/data.json"
 movingNoteName = "../resources/circular-arrow_small.png"
 backgroudName = "../resources/background_combined_3.png"
 ciecleName = "../resources/circle_2.png"
+songListPath = '../data/songList.json'
+_skip_btn = '../images/exit1.png'
 width = 1280
 height = 720
 bg = (255, 255, 255)
@@ -23,6 +28,17 @@ NOTE_SIZE = 200
 MOVINGNOTE_SIZE = 150
 APPEAR_TIME = 330
 SPEED = 15
+
+
+
+def test_buttons(_screen):
+    # 測試用，若想停用這個按鈕直接註解掉 function 內容 (不含 def & return 0) 這兩行即可。
+    skip_btn = pygame.image.load(_skip_btn)
+    skip_btn = pygame.transform.smoothscale(skip_btn, (width*0.1, height*0.1))
+    skip = button.Button(width*0.1, height*0.1, skip_btn)
+    if(skip.draw(_screen)):
+        return -1
+    return 0
 
 
 def GenerateMovingNote(noteNum, handpicRect):
@@ -50,6 +66,7 @@ def GenerateMovingNote(noteNum, handpicRect):
 
     run = True
     while run:
+
         position = position.move(speed)
         #screen.fill(bg)
         screen.blit(background,(0,0))
@@ -66,6 +83,11 @@ def GenerateMovingNote(noteNum, handpicRect):
         screen.blit(text_perfect, text_P_Rect)
         screen.blit(text_miss, text_M_Rect)
         screen.blit(movingNote, position)
+
+        # 測試用
+        if(test_buttons(screen) == -1):
+            return -1
+
         pygame.display.update()         
         if noteNum == 0:
             if position.y > y:
@@ -157,17 +179,20 @@ def main():
     rect_3.center = (width/2, height/2+NOTE_SIZE)
 
     #可以改成選歌畫面
-    screen.fill(bg)
-    msg_font = pygame.font.SysFont("DFKai-SB", 40)
-    msg1 = msg_font.render("space to play music", True, (100, 100, 100))
-    msg2 = msg_font.render("Esc to quit", True, (100, 100, 100))
-    screen.blit(msg1, (20, 100))
-    screen.blit(msg2, (20, 200))
-    pygame.display.update()
+    # screen.fill(bg)
+    # msg_font = pygame.font.SysFont("DFKai-SB", 40)
+    # msg1 = msg_font.render("space to play music", True, (100, 100, 100))
+    # msg2 = msg_font.render("Esc to quit", True, (100, 100, 100))
+    # screen.blit(msg1, (20, 100))
+    # screen.blit(msg2, (20, 200))
+    # pygame.display.update()
+    songIndex = SelectSongScene.StartSelectSongScene(screen)
+    if(songIndex == -1):
+        return 1
 
     global drum
     pygame.mixer.music.load(musicName)
-    pygame.mixer.music.set_volume(0.1)
+    pygame.mixer.music.set_volume(1)
     drum = pygame.mixer.Sound(soundName)
     startTime = 0
 
@@ -184,14 +209,14 @@ def main():
     )
     movingNote.convert_alpha()
     position = movingNote.get_rect()
-    run = True
-    while run:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT or pygame.key.get_pressed()[pygame.K_ESCAPE]:
-                pygame.quit()
-                sys.exit()
-            if pygame.key.get_pressed()[pygame.K_SPACE]:
-                run = False
+    # run = True
+    # while run:
+    #     for event in pygame.event.get():
+    #         if event.type == pygame.QUIT or pygame.key.get_pressed()[pygame.K_ESCAPE]:
+    #             pygame.quit()
+    #             sys.exit()
+    #         if pygame.key.get_pressed()[pygame.K_SPACE]:
+    #             run = False
 
     screen.fill(bg)
     pygame.display.update()
@@ -213,6 +238,7 @@ def main():
     p = 0
     run = True
     while run:
+
         # read camera
         success, frame = cap.read()
         frame = cv.flip(frame, 1)
@@ -260,7 +286,9 @@ def main():
         elif duration > dataArr[p]["time"] - PREVIEW_TIME:  # note start moving
             noteNum = dataArr[p]["noteNum"]
             p += 1
-            GenerateMovingNote(noteNum, handpicRect)
+            if(GenerateMovingNote(noteNum, handpicRect) == -1):
+                pygame.mixer.music.pause()
+                run = False
             pygame.display.flip()
             # Counting Score
             if pointsInArea(handpicRect, noteNum)==1:
@@ -274,19 +302,25 @@ def main():
             #screen.fill(bg)
             pygame.display.update()
 
-        if not pygame.mixer.music.get_busy():
-            #可以加上結算畫面
-            pygame.quit()
-            exit()
-        
+        # if not pygame.mixer.music.get_busy():
+        #     #可以加上結算畫面
+        #     # pygame.quit()
+        #     # exit()
+        #     run = False
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT or pygame.key.get_pressed()[pygame.K_ESCAPE]:
                 pygame.quit()
                 exit()
 
     file.close()
+    songListFile = open(songListPath)
+    songList = json.load(songListFile)
+    ResultScene.StartResultScene(screen, songList[songIndex]['name'], perfect, miss)
+    songListFile.close()
+    return 0
 
-    pygame.quit()
+    # pygame.quit()
 #    exit()
 
 

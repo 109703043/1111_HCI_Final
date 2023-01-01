@@ -65,7 +65,7 @@ music_muted = False
 musicName = '../resources/群青.mp3'
 pygame.mixer.music.load(musicName)
 pygame.mixer.music.play(3)
-pygame.mixer.music.set_volume(0.1)
+pygame.mixer.music.set_volume(0.2)
 
 #音效
 soundName = "../resources/button01.mp3"
@@ -107,15 +107,16 @@ while run:
     # settings panel off
     else:
         if start_buttun.draw(screen) and clickTime == 0:
-            #擺遊戲介面進去
-            game.main()
-            #背景音樂關閉
-            pygame.mixer.music.pause()
+            sound_.play()
             print('START')
-
-            SelectSongScene.StartSelectSongScene(screen)
-            pygame.mixer.music.play(3)
-            pygame.mixer.music.set_volume(0.2)
+            #擺遊戲介面進去
+            exitCode = game.main()
+            if(exitCode == 0):      # back from ResultScene
+                pygame.mixer.music.load(musicName)
+                pygame.mixer.music.play(3)
+                pygame.mixer.music.set_volume(0.2)
+            elif(exitCode == 1):    # back from SelectSongScene
+                pass
 
 
         if settings_button.draw(screen):

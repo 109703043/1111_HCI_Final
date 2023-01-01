@@ -1,7 +1,7 @@
 import pygame
 import json
 import button
-import ResultScene
+import Sound
 
 # init parameters of resources
 WIDTH = 1280
@@ -10,11 +10,13 @@ ORIGIN = (0, 0)
 COLOR_WHITE = (255, 255, 255)
 COLOR_BLACK = (0, 0, 0)
 COLOR_GRAY = (100, 100, 100)
+_sound = "../resources/button01.mp3"
 _bg = '../resources/BG.png'
 _bgFilter = '../resources/BGFilter.png'
 _selectSong_song = '../resources/SelectSongScene_song.png'
 _selectSong_btn0 = '../resources/SelectSongScene_btnPrevious.png'
 _selectSong_btn1 = '../resources/SelectSongScene_btnNext.png'
+_selectSong_back = '../images/back.png'
 songListPath = '../data/songList.json'
 songListFile = open(songListPath)
 songList = json.load(songListFile)
@@ -35,6 +37,7 @@ def ChangeSong(_screen, _index):
     song.draw(_screen)
     btn0.draw(_screen)
     btn1.draw(_screen)
+    back.draw(_screen)
 
     # song name
     txt_font = pygame.font.Font('../fonts/nasalization/nasalization-rg.otf', 48)
@@ -56,6 +59,9 @@ def ChangeSong(_screen, _index):
 
 
 def StartSelectSongScene(_screen):
+    # sound effect
+    sound = Sound.sound(_sound)
+
     # background
     global bg
     bg = pygame.image.load(_bg).convert_alpha()
@@ -63,14 +69,18 @@ def StartSelectSongScene(_screen):
     global bgFilter
     bgFilter = pygame.image.load(_bgFilter).convert_alpha()
     bgFilter = pygame.transform.smoothscale(bgFilter, (WIDTH, HEIGHT))
+    
     # elements in select song scene
-    global song, btn0, btn1
+    global song, btn0, btn1, back
     selectSong_song = pygame.image.load(_selectSong_song)
     selectSong_btn0 = pygame.image.load(_selectSong_btn0)
     selectSong_btn1 = pygame.image.load(_selectSong_btn1)
+    selectSong_back = pygame.image.load(_selectSong_back)
+    selectSong_back = pygame.transform.smoothscale(selectSong_back, (WIDTH*0.1, HEIGHT*0.1))
     song = button.Button(WIDTH*0.5-selectSong_song.get_width()/2, HEIGHT*0.5-selectSong_song.get_height()/2, selectSong_song)
     btn0 = button.Button(WIDTH*0.1, HEIGHT*0.5-100, selectSong_btn0)
     btn1 = button.Button(WIDTH*0.9-80, HEIGHT*0.5-100, selectSong_btn1)
+    back = button.Button(WIDTH*0.1, HEIGHT*0.1, selectSong_back)
 
     # main loop
     run = True
@@ -99,24 +109,30 @@ def StartSelectSongScene(_screen):
                 # previous song
                 if(btn0.draw(_screen) and index > 0 and clickTime == 0):
                     clickTime = pygame.time.get_ticks()
+                    sound.play()
                     index -= 1
 
                 # next song
                 if(btn1.draw(_screen) and index < len(songList)-1 and clickTime == 0):
                     clickTime = pygame.time.get_ticks()
+                    sound.play()
                     index += 1
 
                 # background of song
                 if(song.draw(_screen) and clickTime == 0):
-                    ResultScene.StartResultScene(_screen, songList[index]['name'], 115, 88)
+                    # ResultScene.StartResultScene(_screen, songList[index]['name'], 115, 88)
+                    sound.play()
                     run = False
-                    break
-                    # pass
+
+                if(back.draw(_screen) and clickTime == 0):
+                    sound.play()
+                    index = -1
+                    run = False
 
                 ChangeSong(_screen, index)
 
-            
-    return
+    songListFile.close()
+    return index
 
 
 
