@@ -6,8 +6,6 @@ import json
 import cv2 as cv
 import numpy as np
 from pygame.locals import *
-import SelectSongScene
-import ResultScene
 import HandDetection as hand_detection
 
 
@@ -159,8 +157,12 @@ def main():
     rect_3.center = (width/2, height/2+NOTE_SIZE)
 
     #可以改成選歌畫面
-    SelectSongScene.StartSelectSongScene(screen)
-
+    screen.fill(bg)
+    msg_font = pygame.font.SysFont("DFKai-SB", 40)
+    msg1 = msg_font.render("space to play music", True, (100, 100, 100))
+    msg2 = msg_font.render("Esc to quit", True, (100, 100, 100))
+    screen.blit(msg1, (20, 100))
+    screen.blit(msg2, (20, 200))
     pygame.display.update()
 
     global drum
