@@ -111,6 +111,7 @@ def StartSelectSongScene(_screen):
                     ResultScene.StartResultScene(_screen, songList[index]['name'], 115, 88)
                     run = False
                     break
+                    # pass
 
                 ChangeSong(_screen, index)
 
