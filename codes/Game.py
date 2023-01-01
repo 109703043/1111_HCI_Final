@@ -14,7 +14,7 @@ soundName = "../resources/soundDrum.wav"
 noteName = "../resources/circle.png"
 fileName = "../data/data.json"
 movingNoteName = "../resources/circular-arrow_small.png"
-backgroudName = "../resources/background_combined_2.png"
+backgroudName = "../resources/background_combined_3.png"
 ciecleName = "../resources/circle_2.png"
 width = 1280
 height = 720
@@ -56,7 +56,7 @@ def GenerateMovingNote(noteNum, handpicRect):
         
         # hand detection
         success, frame = cap.read()
-        frame = np.rot90(frame)
+        frame = cv.flip(frame, 1)
         frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB) 
         hd_results = tracker.handsFinder(frame)
         lmList = tracker.positionFinder(hd_results)  
@@ -137,7 +137,7 @@ def main():
     background = pygame.transform.smoothscale(background, (width, height))
 
     global handpic
-    handpic = pygame.image.load("../resources/hand_small.png")
+    handpic = pygame.image.load("../resources/hand_small_2.png")
     handpic = pygame.transform.smoothscale(handpic, (150, 150))
     handpic.convert_alpha()
     handpicRect = handpic.get_rect()   
@@ -145,7 +145,7 @@ def main():
     perfect=0
     miss=0
     font = pygame.font.Font('freesansbold.ttf', 38)
-        # 矩形範圍
+    # 矩形範圍
     global rect_0, rect_1, rect_2, rect_3
     rect_0 = pygame.Rect(0, 0, NOTE_SIZE, NOTE_SIZE)        #上
     rect_0.center = (width/2, height/2-NOTE_SIZE)
@@ -215,7 +215,8 @@ def main():
     while run:
         # read camera
         success, frame = cap.read()
-        frame = np.rot90(frame)
+        frame = cv.flip(frame, 1)
+        #frame = np.rot90(frame)
         frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
         
         # hand detection
