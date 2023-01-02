@@ -136,7 +136,7 @@ def pointsInArea(handpicRect, noteNum):
     rect_now = CheckArea(noteNum)
     counter = 0
     if len(handpicRect) != 0:
-        if rect_now[0] < handpicRect[0] and handpicRect[0] < rect_now[0]+200 and rect_now[1] < handpicRect[1] and handpicRect[1] < rect_now[1]+200:
+        if rect_now[0] < handpicRect[0] and handpicRect[0] < rect_now[0]+NOTE_SIZE and rect_now[1] < handpicRect[1] and handpicRect[1] < rect_now[1]+NOTE_SIZE:
             counter += 1
     return counter
 
@@ -149,7 +149,8 @@ def main():
     pygame.display.set_caption("Final")
 
     global cap
-    cap = cv.VideoCapture(0)        
+    cap = cv.VideoCapture(0)  
+    cap.set(cv.CAP_PROP_FOURCC, cv.VideoWriter_fourcc(*'MJPG'))      
 #    cap.set(cv.CAP_PROP_FPS, 30)
     # hand detection
     global tracker
@@ -302,11 +303,13 @@ def main():
             #screen.fill(bg)
             pygame.display.update()
 
-        # if not pygame.mixer.music.get_busy():
-        #     #可以加上結算畫面
-        #     # pygame.quit()
-        #     # exit()
-        #     run = False
+        if not pygame.mixer.music.get_busy():
+            file.close()
+            songListFile = open(songListPath)
+            songList = json.load(songListFile)
+            ResultScene.StartResultScene(screen, songList[songIndex]['name'], perfect, miss)
+            songListFile.close()
+            return 0
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT or pygame.key.get_pressed()[pygame.K_ESCAPE]:
