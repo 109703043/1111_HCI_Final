@@ -128,10 +128,6 @@ def StartSelectSongScene(_screen):
                     sound.play()
                     index = -1
                     run = False
-<<<<<<< HEAD
-                    break
-=======
->>>>>>> 2d4e6dac1aa9d8f9f0210bb56c0248dc2c729aa3
 
                 ChangeSong(_screen, index)
 
