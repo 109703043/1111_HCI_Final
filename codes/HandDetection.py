@@ -63,6 +63,6 @@ class handTracker():
     
     def toImage(self, lmList, position):
         if len(lmList) != 0 and lmList[9][1]!=0 and lmList[9][2]!=0:
-            position.center = (lmList[9][2],lmList[9][1])
+            position.center = (lmList[9][1],lmList[9][2])
 
         return position

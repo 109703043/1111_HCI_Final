@@ -1,4 +1,5 @@
 import pygame
+import Sound
 
 # init parameters of resources
 WIDTH = 1280
@@ -7,6 +8,7 @@ ORIGIN = (0, 0)
 COLOR_WHITE = (255, 255, 255)
 COLOR_BLACK = (0, 0, 0)
 COLOR_GRAY = (100, 100, 100)
+_sound = "../resources/button01.mp3"
 _result_bg = '../resources/ResultScene_BG.png'
 _result_bgFilter = '../resources/ResultScene_BGFilter.png'
 _result_title = '../resources/ResultScene_ResultTitle.png'
@@ -29,10 +31,15 @@ def ResetScreen(_screen):
 
 
 def StartResultScene(_screen, _songName, _perfect, _miss):
-    # init resources
+    # sound effect
+    sound = Sound.sound(_sound)
     score = MAX_SCORE/(_perfect+_miss)*_perfect + -100*_miss
+
+    # compute score
     if(score < 0):
         score = 0
+
+    # images
     result_resources = []
     global result_bg
     result_bg = pygame.image.load(_result_bg).convert_alpha()
@@ -88,6 +95,8 @@ def StartResultScene(_screen, _songName, _perfect, _miss):
     x, y = -result_resources[index].get_width(), result_positions[index][1]
     skipClock = 0
     toAddIndex = False
+    pygame.mixer.music.set_volume(0.5)
+    pygame.mixer.music.play(0)
     while(index < len(result_resources)-2):
         pygame.time.delay(DELAY_TIME)
 
@@ -124,6 +133,7 @@ def StartResultScene(_screen, _songName, _perfect, _miss):
         if(toAddIndex):
             toAddIndex = False
             index += 1
+            sound.play()
             if(index < len(result_resources)-2):
                 x, y = -result_resources[index].get_width(), result_positions[index][1]
 
@@ -189,6 +199,7 @@ def StartResultScene(_screen, _songName, _perfect, _miss):
                 exit()
             # enter the next stage
             if(pygame.key.get_pressed()[pygame.K_SPACE] and skipClock == 0):
+                sound.play()
                 run = False
     return
 
