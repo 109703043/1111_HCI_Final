@@ -2,7 +2,6 @@ import pygame
 import button
 import Sound
 import ResultScene
-import SelectSongScene
 import Game as game
 # def main():
 
@@ -14,11 +13,14 @@ pygame.mixer.init()
 
 #視窗設定
 screen = pygame.display.set_mode((1280,720))
-pygame.display.set_caption('Music Game')
+pygame.display.set_caption('HAMUGA')
 
 #背景圖
 background_image = pygame.image.load('../images/monster.png')   
 screen.blit(background_image,(0,0))
+
+#遊戲名稱
+hamuga_img = pygame.image.load('../images/name2.png')
 
 #開始圖
 start_img = pygame.image.load('../images/start.png')
@@ -75,8 +77,9 @@ sound_ = Sound.sound(soundName)
 run = True
 clickTime = 0
 while run:
-
+    
     screen.blit(background_image,(0,0))
+    screen.blit(hamuga_img,(350,200))
 
     # settings panel on
     if game_paused == True:
@@ -107,13 +110,15 @@ while run:
     # settings panel off
     else:
         if start_buttun.draw(screen) and clickTime == 0:
+
             #擺遊戲介面進去
             game.main()
+            
             #背景音樂關閉
             pygame.mixer.music.pause()
-            print('START')
+            
+            # print('START')
 
-            SelectSongScene.StartSelectSongScene(screen)
             pygame.mixer.music.play(3)
             pygame.mixer.music.set_volume(0.2)
 
