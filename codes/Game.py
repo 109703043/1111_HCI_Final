@@ -163,7 +163,7 @@ def main(_cap, _tracker):
     # Settings
     perfect=0
     miss=0
-    font = pygame.font.Font('freesansbold.ttf', 38)
+    font = pygame.font.Font('../fonts/nasalization/nasalization-rg.otf', 32)
     # 矩形範圍
     global rect_0, rect_1, rect_2, rect_3
     rect_0 = pygame.Rect(0, 0, NOTE_SIZE*1.2, NOTE_SIZE*1.2)        #上
