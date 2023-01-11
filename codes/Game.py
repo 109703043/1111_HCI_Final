@@ -79,7 +79,12 @@ def GenerateMovingNote(noteNum, handpicRect):
         lmList = tracker.positionFinder(hd_results)
         ConvertLmlist(lmList) 
         handpicRect = tracker.toImage(lmList, handpicRect)
-        screen.blit(handpic, handpicRect)   
+        hd_results = cv.transpose(hd_results)
+        surf = pygame.surfarray.make_surface(hd_results)
+        surf = pygame.transform.scale(surf,(width,height))      #調整webcam畫面大小
+        screen.blit(surf, (0,0))
+        screen.blit(handpic, handpicRect)
+        pygame.display.flip()
 
         screen.blit(text_perfect, text_P_Rect)
         screen.blit(text_miss, text_M_Rect)
@@ -238,7 +243,6 @@ def main():
         # read camera
         success, frame = cap.read()
         frame = cv.flip(frame, 1)
-        #frame = np.rot90(frame)
         frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
         
         # hand detection
@@ -251,10 +255,10 @@ def main():
         hd_results = cv.transpose(hd_results)
         surf = pygame.surfarray.make_surface(hd_results)
         surf = pygame.transform.scale(surf,(width,height))      #調整webcam畫面大小
-        # screen.blit(surf, (0,0))
+        screen.blit(surf, (0,0))
         
         # Display background and handpic
-        screen.blit(background,(0,0))
+        # screen.blit(background,(0,0))
         screen.blit(handpic, handpicRect)
         pygame.display.flip()
         
