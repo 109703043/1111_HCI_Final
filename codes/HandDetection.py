@@ -1,19 +1,6 @@
-from datetime import datetime
 import cv2 as cv
 import argparse
 import mediapipe as mp
-import pygame
-
-parser = argparse.ArgumentParser(description='This program shows how to use background subtraction methods provided by \
-                                            OpenCV. You can process both videos and images.')
-parser.add_argument('--input', type=str, help='Path to a video or a sequence of image.', default='vtest.avi')
-parser.add_argument('--algo', type=str, help='Background subtraction method (KNN, MOG2).', default='MOG2')
-args = parser.parse_args()
-
-if args.algo == 'MOG2':
-    backSub = cv.createBackgroundSubtractorMOG2()
-else:
-    backSub = cv.createBackgroundSubtractorKNN()
 
 picPath = './GeneratedPictures/'
 

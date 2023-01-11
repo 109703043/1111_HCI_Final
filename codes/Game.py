@@ -12,10 +12,10 @@ import ResultScene
 import button
 
 
-musicName = "../resources/music01.mp3"
+musicName = "../resources/music02.mp3"
 soundName = "../resources/soundDrum.wav"
 noteName = "../resources/circle.png"
-fileName = "../data/data.json"
+fileName = "../data/data_slowVer.json"
 movingNoteName = "../resources/circular-arrow_small.png"
 backgroudName = "../resources/background_combined_3.png"
 ciecleName = "../resources/circle_2.png"
@@ -27,17 +27,17 @@ bg = (255, 255, 255)
 NOTE_SIZE = 200
 MOVINGNOTE_SIZE = 150
 APPEAR_TIME = 330
-SPEED = 15
+SPEED = 30
 
 
 
 def test_buttons(_screen):
     # 測試用，若想停用這個按鈕直接註解掉 function 內容 (不含 def & return 0) 這兩行即可。
-    skip_btn = pygame.image.load(_skip_btn)
-    skip_btn = pygame.transform.smoothscale(skip_btn, (width*0.1, height*0.1))
-    skip = button.Button(width*0.1, height*0.1, skip_btn)
-    if(skip.draw(_screen)):
-        return -1
+    # skip_btn = pygame.image.load(_skip_btn)
+    # skip_btn = pygame.transform.smoothscale(skip_btn, (width*0.1, height*0.1))
+    # skip = button.Button(width*0.1, height*0.1, skip_btn)
+    # if(skip.draw(_screen)):
+    #     return -1
     return 0
 
 
@@ -76,7 +76,8 @@ def GenerateMovingNote(noteNum, handpicRect):
         frame = cv.flip(frame, 1)
         frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB) 
         hd_results = tracker.handsFinder(frame)
-        lmList = tracker.positionFinder(hd_results)  
+        lmList = tracker.positionFinder(hd_results)
+        ConvertLmlist(lmList) 
         handpicRect = tracker.toImage(lmList, handpicRect)
         screen.blit(handpic, handpicRect)   
 
@@ -140,6 +141,12 @@ def pointsInArea(handpicRect, noteNum):
             counter += 1
     return counter
 
+def ConvertLmlist(lmlist):
+    for i in range(len(lmlist)):
+        lmlist[i][1] *= width/camSize[1]
+        lmlist[i][2] *= height/camSize[0]
+    return lmlist
+
 
 def main():
 
@@ -152,6 +159,10 @@ def main():
     cap = cv.VideoCapture(0)  
     cap.set(cv.CAP_PROP_FOURCC, cv.VideoWriter_fourcc(*'MJPG'))      
 #    cap.set(cv.CAP_PROP_FPS, 30)
+    success, frame = cap.read()
+    global camSize
+    camSize = frame.shape
+    print(camSize)
     # hand detection
     global tracker
     tracker = hand_detection.handTracker() 
@@ -179,17 +190,10 @@ def main():
     rect_3 = pygame.Rect(0, 0, NOTE_SIZE, NOTE_SIZE)        #下
     rect_3.center = (width/2, height/2+NOTE_SIZE)
 
-    #可以改成選歌畫面
-    # screen.fill(bg)
-    # msg_font = pygame.font.SysFont("DFKai-SB", 40)
-    # msg1 = msg_font.render("space to play music", True, (100, 100, 100))
-    # msg2 = msg_font.render("Esc to quit", True, (100, 100, 100))
-    # screen.blit(msg1, (20, 100))
-    # screen.blit(msg2, (20, 200))
-    # pygame.display.update()
+    # select song
     songIndex = SelectSongScene.StartSelectSongScene(screen)
     if(songIndex == -1):
-        return 1
+        return 1    # back to StartScene
 
     global drum
     pygame.mixer.music.load(musicName)
@@ -210,19 +214,10 @@ def main():
     )
     movingNote.convert_alpha()
     position = movingNote.get_rect()
-    # run = True
-    # while run:
-    #     for event in pygame.event.get():
-    #         if event.type == pygame.QUIT or pygame.key.get_pressed()[pygame.K_ESCAPE]:
-    #             pygame.quit()
-    #             sys.exit()
-    #         if pygame.key.get_pressed()[pygame.K_SPACE]:
-    #             run = False
 
     screen.fill(bg)
     pygame.display.update()
 
-    # main loop
     musicStartAt = 0
     pygame.mixer.music.play(0, musicStartAt / 1000)
     startTime = pygame.time.get_ticks()
@@ -249,12 +244,14 @@ def main():
         # hand detection
         hd_results = tracker.handsFinder(frame)  # hand detection
         lmList = tracker.positionFinder(hd_results)
+        ConvertLmlist(lmList)
         
         # handToPic
         handpicRect = tracker.toImage(lmList, handpicRect)
+        hd_results = cv.transpose(hd_results)
         surf = pygame.surfarray.make_surface(hd_results)
         surf = pygame.transform.scale(surf,(width,height))      #調整webcam畫面大小
-        #screen.blit(surf, (0,0))
+        # screen.blit(surf, (0,0))
         
         # Display background and handpic
         screen.blit(background,(0,0))

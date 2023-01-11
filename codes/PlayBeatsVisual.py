@@ -6,7 +6,7 @@ import json
 # 使用檔案相關參數初始化
 musicName = '../resources/music01.mp3'	    # 改成你要播的音樂
 soundName = '../resources/soundDrum.wav'
-fileName = '../data/data.json'
+fileName = '../data/data_slowVer.json'
 noteName = '../resources/circle.png'
 WIDTH = 1280
 HEIGHT = 720
@@ -14,7 +14,7 @@ NOTE_SIZE = 150
 APPEAR_TIME = 330
 # PREVIEW_TIME = 1000
 PREVIEW_TIME = 0
-MUSIC_START_AT = 0
+MUSIC_START_AT = 50000
 
 NOTE_POSITION = [(WIDTH/2-NOTE_SIZE/2, HEIGHT/2-3*NOTE_SIZE/2), (WIDTH/2-3*NOTE_SIZE/2, HEIGHT/2-NOTE_SIZE/2), (WIDTH/2+NOTE_SIZE/2, HEIGHT/2-NOTE_SIZE/2), (WIDTH/2-NOTE_SIZE/2, HEIGHT/2+NOTE_SIZE/2)]
 

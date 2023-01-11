@@ -107,20 +107,18 @@ while run:
         if exit_button.draw(screen):
             sound_.play()
             run = False
+            
     # settings panel off
     else:
         if start_buttun.draw(screen) and clickTime == 0:
 
-            #擺遊戲介面進去
-            game.main()
-            
-            #背景音樂關閉
-            pygame.mixer.music.pause()
-            
-            # print('START')
+            sound_.play()
 
-            pygame.mixer.music.play(3)
-            pygame.mixer.music.set_volume(0.2)
+            #擺遊戲介面進去
+            if(game.main() != 1):
+                pygame.mixer.music.load(musicName)
+                pygame.mixer.music.play(3)
+                pygame.mixer.music.set_volume(0.2)
 
 
         if settings_button.draw(screen):
