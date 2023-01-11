@@ -267,6 +267,7 @@ def main(_cap, _tracker):
             PREVIEW_TIME = distance_y / SPEED
 
         if dataArr[p]["time"] == -1:  # music end
+            print('pt1')
             while pygame.mixer.music.get_busy():
                 continue
             run = False

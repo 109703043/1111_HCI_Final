@@ -12,10 +12,10 @@ dataList = []
 startTime = 0
 stopTime = 0
 t = 1
-unit = 588
+unit = 686
 start = 0
 
-while t*unit < 87000:
+while t*unit < 90000:
     dataList.append({'time':t*unit+start, 'noteNum':0})
     t += 1
 
