@@ -27,7 +27,7 @@ bg = (255, 255, 255)
 NOTE_SIZE = 200
 MOVINGNOTE_SIZE = 150
 APPEAR_TIME = 330
-SPEED = 30
+SPEED = 20
 
 
 
@@ -80,9 +80,9 @@ def GenerateMovingNote(noteNum, handpicRect):
         ConvertLmlist(lmList) 
         handpicRect = tracker.toImage(lmList, handpicRect)
         hd_results = cv.transpose(hd_results)
-        surf = pygame.surfarray.make_surface(hd_results)
-        surf = pygame.transform.scale(surf,(width,height))      #調整webcam畫面大小
-        screen.blit(surf, (0,0))
+        # surf = pygame.surfarray.make_surface(hd_results)
+        # surf = pygame.transform.scale(surf,(width,height))      #調整webcam畫面大小
+        # screen.blit(surf, (0,0))
         screen.blit(handpic, handpicRect)
         pygame.display.flip()
 
@@ -167,7 +167,7 @@ def main():
     success, frame = cap.read()
     global camSize
     camSize = frame.shape
-    print(camSize)
+    # print(camSize)
     # hand detection
     global tracker
     tracker = hand_detection.handTracker() 
@@ -186,13 +186,13 @@ def main():
     font = pygame.font.Font('freesansbold.ttf', 38)
     # 矩形範圍
     global rect_0, rect_1, rect_2, rect_3
-    rect_0 = pygame.Rect(0, 0, NOTE_SIZE, NOTE_SIZE)        #上
+    rect_0 = pygame.Rect(0, 0, NOTE_SIZE*1.2, NOTE_SIZE*1.2)        #上
     rect_0.center = (width/2, height/2-NOTE_SIZE)
-    rect_1 = pygame.Rect(0, 0, NOTE_SIZE, NOTE_SIZE)        #左
+    rect_1 = pygame.Rect(0, 0, NOTE_SIZE*1.2, NOTE_SIZE*1.2)        #左
     rect_1.center = (width/2-NOTE_SIZE, height/2)
-    rect_2 = pygame.Rect(0, 0, NOTE_SIZE, NOTE_SIZE)        #右
+    rect_2 = pygame.Rect(0, 0, NOTE_SIZE*1.2, NOTE_SIZE*1.2)        #右
     rect_2.center = (width/2+NOTE_SIZE, height/2)
-    rect_3 = pygame.Rect(0, 0, NOTE_SIZE, NOTE_SIZE)        #下
+    rect_3 = pygame.Rect(0, 0, NOTE_SIZE*1.2, NOTE_SIZE*1.2)        #下
     rect_3.center = (width/2, height/2+NOTE_SIZE)
 
     # select song
@@ -253,12 +253,12 @@ def main():
         # handToPic
         handpicRect = tracker.toImage(lmList, handpicRect)
         hd_results = cv.transpose(hd_results)
-        surf = pygame.surfarray.make_surface(hd_results)
-        surf = pygame.transform.scale(surf,(width,height))      #調整webcam畫面大小
-        screen.blit(surf, (0,0))
+        # surf = pygame.surfarray.make_surface(hd_results)
+        # surf = pygame.transform.scale(surf,(width,height))      #調整webcam畫面大小
+        # screen.blit(surf, (0,0))
         
         # Display background and handpic
-        # screen.blit(background,(0,0))
+        screen.blit(background,(0,0))
         screen.blit(handpic, handpicRect)
         pygame.display.flip()
         
