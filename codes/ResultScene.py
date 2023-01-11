@@ -1,4 +1,6 @@
 import pygame
+import cv2 as cv
+import HandDetection as hand_detection
 import Sound
 
 # init parameters of resources
@@ -13,6 +15,7 @@ _result_bg = '../resources/ResultScene_BG.png'
 _result_bgFilter = '../resources/ResultScene_BGFilter.png'
 _result_title = '../resources/ResultScene_ResultTitle.png'
 _result_box = '../resources/ResultScene_ResultBox.png'
+_smallHand = '../resources/hand_small_2.png'
 MAX_SCORE = 100000
 DELAY_TIME = 30
 ANIMATION_FRAME = 12
@@ -30,7 +33,15 @@ def ResetScreen(_screen):
 
 
 
-def StartResultScene(_screen, _songName, _perfect, _miss):
+def ConvertLmlist(lmlist):
+    for i in range(len(lmlist)):
+        lmlist[i][1] *= WIDTH/camSize[1]
+        lmlist[i][2] *= HEIGHT/camSize[0]
+    return
+
+
+
+def StartResultScene(_screen, cap, tracker, _songName, _perfect, _miss):
     # sound effect
     sound = Sound.sound(_sound)
     score = MAX_SCORE/(_perfect+_miss)*_perfect + -100*_miss
@@ -181,14 +192,46 @@ def StartResultScene(_screen, _songName, _perfect, _miss):
                 alpha = 0
 
     # done loading
-    ResetScreen(_screen)
-    for i in range(len(result_resources)):
-        _screen.blit(result_resources[i], result_positions[i])
-    pygame.display.update()
+
+    # hand
+    global smallHand
+    smallHand = pygame.image.load(_smallHand)
+    smallHand = pygame.transform.smoothscale(smallHand, (150, 150))
+    global handpicRect
+    handpicRect = smallHand.get_rect()
+
+    # camera
+    success, frame = cap.read()
+    global camSize
+    camSize = frame.shape
+    # print(camSize)
+
     # wait until player wanna go to the next scene
     run = True
     while run:
-        # allow player to press space key again
+        ResetScreen(_screen)
+        for i in range(len(result_resources)):
+            _screen.blit(result_resources[i], result_positions[i])
+
+        # read camera
+        success, frame = cap.read()
+        frame = cv.flip(frame, 1)
+        frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
+        
+        # hand detection
+        hd_results = tracker.handsFinder(frame)  # hand detection
+        lmList = tracker.positionFinder(hd_results)
+        ConvertLmlist(lmList)
+        handpicRect = tracker.toImage(lmList, handpicRect)
+        _screen.blit(smallHand, handpicRect)
+
+        # when the gesture is rock
+        if(skipClock == 0 and len(lmList) > 0 and tracker.isRock(lmList)):
+            sound.play()
+            run = False
+
+        pygame.display.update()
+        
         if(pygame.time.get_ticks()-skipClock > 500):
             skipClock = 0
 

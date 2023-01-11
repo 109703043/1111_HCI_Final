@@ -1,4 +1,6 @@
 import pygame
+import cv2 as cv
+import HandDetection as hand_detection
 import json
 import button
 import Sound
@@ -17,6 +19,7 @@ _selectSong_song = '../resources/SelectSongScene_song.png'
 _selectSong_btn0 = '../resources/SelectSongScene_btnPrevious.png'
 _selectSong_btn1 = '../resources/SelectSongScene_btnNext.png'
 _selectSong_back = '../images/back.png'
+_smallHand = '../resources/hand_small_2.png'
 songListPath = '../data/songList.json'
 songListFile = open(songListPath)
 songList = json.load(songListFile)
@@ -54,11 +57,31 @@ def ChangeSong(_screen, _index):
     msg = txt_font.render(str(_index+1) + '/' + str(len(songList)), True, COLOR_WHITE)
     _screen.blit(msg, (WIDTH*0.5 - msg.get_width()/2, HEIGHT*0.8))
 
+    _screen.blit(smallHand, handpicRect)
+
     pygame.display.update()
 
 
 
-def StartSelectSongScene(_screen):
+def ConvertLmlist(lmlist):
+    for i in range(len(lmlist)):
+        lmlist[i][1] *= WIDTH/camSize[1]
+        lmlist[i][2] *= HEIGHT/camSize[0]
+    return
+
+
+
+def isClicked(lm, btnInfo):
+    if( btnInfo[0][0] < lm[1]
+        and lm[1] < btnInfo[0][0] + btnInfo[1][0]
+        and btnInfo[0][1] < lm[2]
+        and lm[2] < btnInfo[0][1] + btnInfo[1][1]):
+        return True
+    return False
+
+
+
+def StartSelectSongScene(_screen, cap, tracker):
     # sound effect
     sound = Sound.sound(_sound)
 
@@ -81,10 +104,27 @@ def StartSelectSongScene(_screen):
     btn0 = button.Button(WIDTH*0.1, HEIGHT*0.5-100, selectSong_btn0)
     btn1 = button.Button(WIDTH*0.9-80, HEIGHT*0.5-100, selectSong_btn1)
     back = button.Button(WIDTH*0.1, HEIGHT*0.1, selectSong_back)
+    btnInfos = [    [btn0.rect.topleft, selectSong_btn0.get_size()],
+                    [btn1.rect.topleft, selectSong_btn1.get_size()],
+                    [song.rect.topleft, selectSong_song.get_size()],
+                    [back.rect.topleft, selectSong_back.get_size()]]
+
+    # hand
+    global smallHand
+    smallHand = pygame.image.load(_smallHand)
+    smallHand = pygame.transform.smoothscale(smallHand, (150, 150))
+    global handpicRect
+    handpicRect = smallHand.get_rect()
+
+    # camera
+    success, frame = cap.read()
+    global camSize
+    camSize = frame.shape
+    # print(camSize)
 
     # main loop
     run = True
-    clickTime = 0
+    clickTime = pygame.time.get_ticks()
     index = 0
     ChangeSong(_screen, index)
     while run:
@@ -92,6 +132,42 @@ def StartSelectSongScene(_screen):
 
         # update screen
         ChangeSong(_screen, index)
+
+        # read camera
+        success, frame = cap.read()
+        frame = cv.flip(frame, 1)
+        frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
+        
+        # hand detection
+        hd_results = tracker.handsFinder(frame)  # hand detection
+        lmList = tracker.positionFinder(hd_results)
+        ConvertLmlist(lmList)
+        handpicRect = tracker.toImage(lmList, handpicRect)
+
+        # when the gesture is rock
+        if(clickTime == 0 and len(lmList) > 0 and tracker.isRock(lmList)):
+            # btn0 (previous song)
+            if(isClicked(lmList[9], btnInfos[0])):
+                clickTime = pygame.time.get_ticks()
+                sound.play()
+                index -= 1
+
+            # btn1 (next song)
+            elif(isClicked(lmList[9], btnInfos[1])):
+                clickTime = pygame.time.get_ticks()
+                sound.play()
+                index += 1
+
+            # select song
+            elif(isClicked(lmList[9], btnInfos[2])):
+                sound.play()
+                run = False
+
+            # back to StartScene
+            elif(isClicked(lmList[9], btnInfos[3])):
+                sound.play()
+                index = -1
+                run = False
 
         # click time
         if(pygame.time.get_ticks()-clickTime > 500):
@@ -120,16 +196,14 @@ def StartSelectSongScene(_screen):
 
                 # background of song
                 if(song.draw(_screen) and clickTime == 0):
-                    # ResultScene.StartResultScene(_screen, songList[index]['name'], 115, 88)
                     sound.play()
                     run = False
 
+                # back to StartScene
                 if(back.draw(_screen) and clickTime == 0):
                     sound.play()
                     index = -1
                     run = False
-
-                ChangeSong(_screen, index)
 
     songListFile.close()
     return index

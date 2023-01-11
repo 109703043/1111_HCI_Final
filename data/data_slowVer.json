@@ -97,7 +97,7 @@
     },
     {
         "time": 37553,
-        "noteNum": 2
+        "noteNum": 3
     },
     {
         "time": 38965,
@@ -105,7 +105,7 @@
     },
     {
         "time": 40377,
-        "noteNum": 1
+        "noteNum": 0
     },
     {
         "time": 41789,
@@ -113,7 +113,7 @@
     },
     {
         "time": 43201,
-        "noteNum": 1
+        "noteNum": 3
     },
     {
         "time": 44613,
@@ -121,7 +121,7 @@
     },
     {
         "time": 46025,
-        "noteNum": 2
+        "noteNum": 0
     },
     {
         "time": 47437,
@@ -133,11 +133,11 @@
     },
     {
         "time": 50261,
-        "noteNum": 0
+        "noteNum": 1
     },
     {
         "time": 51673,
-        "noteNum": 0
+        "noteNum": 2
     },
     {
         "time": 53085,
@@ -149,18 +149,18 @@
     },
     {
         "time": 55909,
-        "noteNum": 3
-    },
-    {
-        "time": 57321,
         "noteNum": 0
     },
     {
-        "time": 59086,
+        "time": 57321,
         "noteNum": 1
     },
     {
-        "time": 60498,
+        "time": 58733,
+        "noteNum": 3
+    },
+    {
+        "time": 60145,
         "noteNum": 2
     },
     {
@@ -169,15 +169,15 @@
     },
     {
         "time": 62969,
-        "noteNum": 0
+        "noteNum": 1
     },
     {
         "time": 64381,
-        "noteNum": 3
+        "noteNum": 0
     },
     {
         "time": 65793,
-        "noteNum": 0
+        "noteNum": 2
     },
     {
         "time": 67205,
@@ -209,19 +209,19 @@
     },
     {
         "time": 77089,
-        "noteNum": 3
+        "noteNum": 1
     },
     {
         "time": 78501,
-        "noteNum": 0
+        "noteNum": 3
     },
     {
         "time": 79913,
-        "noteNum": 0
+        "noteNum": 2
     },
     {
         "time": 81325,
-        "noteNum": 0
+        "noteNum": 3
     },
     {
         "time": 82737,
@@ -229,7 +229,7 @@
     },
     {
         "time": 84159,
-        "noteNum": 0
+        "noteNum": 3
     },
     {
         "time": 86973,

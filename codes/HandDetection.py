@@ -53,3 +53,8 @@ class handTracker():
             position.center = (lmList[9][1],lmList[9][2])
 
         return position
+
+    def isRock(self, lmlist):
+        if(lmlist[9][2] < lmlist[12][2]):
+            return True
+        return False

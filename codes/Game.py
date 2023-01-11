@@ -13,7 +13,7 @@ import button
 
 
 musicName = "../resources/music02.mp3"
-soundName = "../resources/soundDrum.wav"
+soundDrumName = "../resources/soundDrum.wav"
 noteName = "../resources/circle.png"
 fileName = "../data/data_slowVer.json"
 movingNoteName = "../resources/circular-arrow_small.png"
@@ -43,11 +43,11 @@ def GenerateMovingNote(noteNum, handpicRect):
         position.center = (x, 0)
     elif noteNum == 1:  # left
         x, y = x - NOTE_SIZE - MOVINGNOTE_SIZE / 2, y
-        speed = [SPEED*1.5, 0]
+        speed = [SPEED*1.6, 0]
         position.center = (0, y)
     elif noteNum == 2:  # right
         x, y = x + NOTE_SIZE - MOVINGNOTE_SIZE / 2, y
-        speed = [-SPEED*1.5, 0]
+        speed = [-SPEED*1.6, 0]
         position.center = (width, y)
     elif noteNum == 3:  # down
         x, y = x, y + NOTE_SIZE - MOVINGNOTE_SIZE / 2
@@ -136,31 +136,28 @@ def ConvertLmlist(lmlist):
     for i in range(len(lmlist)):
         lmlist[i][1] *= width/camSize[1]
         lmlist[i][2] *= height/camSize[0]
-    return lmlist
+    return
 
 
-def main():
+
+def main(_cap, _tracker):
 
     pygame.init()
     global screen
     screen = pygame.display.set_mode((width, height))
     pygame.display.set_caption("Final")
-
-    global cap
-    cap = cv.VideoCapture(0)  
-    cap.set(cv.CAP_PROP_FOURCC, cv.VideoWriter_fourcc(*'MJPG'))      
-#    cap.set(cv.CAP_PROP_FPS, 30)
-    success, frame = cap.read()
-    global camSize
-    camSize = frame.shape
-    # print(camSize)
-    # hand detection
-    global tracker
-    tracker = hand_detection.handTracker() 
     global background
     background = pygame.image.load(backgroudName)
     background = pygame.transform.smoothscale(background, (width, height))
 
+    global cap
+    cap = _cap
+    success, frame = cap.read()
+    global camSize
+    camSize = frame.shape
+    # print(camSize)
+    global tracker
+    tracker = _tracker
     global handpic
     handpic = pygame.image.load("../resources/hand_small_2.png")
     handpic = pygame.transform.smoothscale(handpic, (150, 150))
@@ -182,14 +179,14 @@ def main():
     rect_3.center = (width/2, height/2+NOTE_SIZE)
 
     # select song
-    songIndex = SelectSongScene.StartSelectSongScene(screen)
+    songIndex = SelectSongScene.StartSelectSongScene(screen, cap, tracker)
     if(songIndex == -1):
         return 1    # back to StartScene
 
     global drum
     pygame.mixer.music.load(musicName)
     pygame.mixer.music.set_volume(1)
-    drum = pygame.mixer.Sound(soundName)
+    drum = pygame.mixer.Sound(soundDrumName)
     startTime = 0
 
     global note
@@ -238,7 +235,7 @@ def main():
         
         # handToPic
         handpicRect = tracker.toImage(lmList, handpicRect)
-        hd_results = cv.transpose(hd_results)
+        # hd_results = cv.transpose(hd_results)
         # surf = pygame.surfarray.make_surface(hd_results)
         # surf = pygame.transform.scale(surf,(width,height))      #調整webcam畫面大小
         # screen.blit(surf, (0,0))
@@ -294,7 +291,7 @@ def main():
             file.close()
             songListFile = open(songListPath)
             songList = json.load(songListFile)
-            ResultScene.StartResultScene(screen, songList[songIndex]['name'], perfect, miss)
+            ResultScene.StartResultScene(screen, cap, tracker, songList[songIndex]['name'], perfect, miss)
             songListFile.close()
             return 0
 
@@ -306,7 +303,7 @@ def main():
     file.close()
     songListFile = open(songListPath)
     songList = json.load(songListFile)
-    ResultScene.StartResultScene(screen, songList[songIndex]['name'], perfect, miss)
+    ResultScene.StartResultScene(screen, cap, tracker, songList[songIndex]['name'], perfect, miss)
     songListFile.close()
     return 0
 
