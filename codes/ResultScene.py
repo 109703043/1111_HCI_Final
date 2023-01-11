@@ -1,5 +1,6 @@
 import pygame
 import cv2 as cv
+import json
 import HandDetection as hand_detection
 import Sound
 
@@ -16,6 +17,7 @@ _result_bgFilter = '../resources/ResultScene_BGFilter.png'
 _result_title = '../resources/ResultScene_ResultTitle.png'
 _result_box = '../resources/ResultScene_ResultBox.png'
 _smallHand = '../resources/hand_small_2.png'
+songListPath = '../data/songList.json'
 MAX_SCORE = 100000
 DELAY_TIME = 30
 ANIMATION_FRAME = 12
@@ -41,7 +43,11 @@ def ConvertLmlist(lmlist):
 
 
 
-def StartResultScene(_screen, cap, tracker, _songName, _perfect, _miss):
+def StartResultScene(_screen, cap, tracker, _songIndex, _perfect, _miss):
+    # song list
+    songListFile = open(songListPath)
+    songList = json.load(songListFile)
+
     # sound effect
     sound = Sound.sound(_sound)
     score = MAX_SCORE/(_perfect+_miss)*_perfect + -100*_miss
@@ -63,7 +69,7 @@ def StartResultScene(_screen, cap, tracker, _songName, _perfect, _miss):
     result_box = pygame.image.load(_result_box).convert_alpha()
     result_box = pygame.transform.smoothscale(result_box, (WIDTH, HEIGHT))
     result_txt = [  ['RESULT', 56],
-                    [_songName, 40],
+                    [songList[_songIndex]['name'], 40],
                     ['perfect', 32],
                     ['miss', 32],
                     ['accuracy', 32],
@@ -101,13 +107,16 @@ def StartResultScene(_screen, cap, tracker, _songName, _perfect, _miss):
         msg = txt_font.render(result_txt[i][0], True, COLOR_WHITE)
         result_resources.append(msg)
 
+    # play music
+    pygame.mixer.music.set_volume(songList[_songIndex]['volume']*0.5)
+    songListFile.close()
+    pygame.mixer.music.play(0)
+
     # loading resources (fly)
     index = 0
     x, y = -result_resources[index].get_width(), result_positions[index][1]
     skipClock = 0
     toAddIndex = False
-    pygame.mixer.music.set_volume(0.5)
-    pygame.mixer.music.play(0)
     while(index < len(result_resources)-2):
         pygame.time.delay(DELAY_TIME)
 

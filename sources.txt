@@ -1,6 +1,10 @@
 music:
+bgm-群青
+https://www.youtube.com/watch?v=Y4nEEZwckuU
+01-怪物
 https://www.youtube.com/watch?v=LJBHySglLXU
-https://www.youtube.com/watch?v=Y4nEEZwckuU&ab_channel=Ayase%2FYOASOBI
+02-KICK BACK
+https://www.youtube.com/watch?v=dFlDRhvM4L0
 
 Tribal dry drum:
 https://mixkit.co/free-sound-effects/tap/

@@ -12,13 +12,10 @@ import ResultScene
 import button
 
 
-musicName = "../resources/music02.mp3"
 soundDrumName = "../resources/soundDrum.wav"
 noteName = "../resources/circle.png"
-fileName = "../data/data_slowVer.json"
 movingNoteName = "../resources/circular-arrow_small.png"
 backgroudName = "../resources/background_combined_3.png"
-ciecleName = "../resources/circle_2.png"
 songListPath = '../data/songList.json'
 _skip_btn = '../images/exit1.png'
 width = 1280
@@ -182,10 +179,15 @@ def main(_cap, _tracker):
     songIndex = SelectSongScene.StartSelectSongScene(screen, cap, tracker)
     if(songIndex == -1):
         return 1    # back to StartScene
+    sheetMusicName = '../data/sheetMusic' + str(songIndex+1).zfill(2) + '.json'
+    musicName = '../resources/music' + str(songIndex+1).zfill(2) + '.mp3'
 
     global drum
     pygame.mixer.music.load(musicName)
-    pygame.mixer.music.set_volume(1)
+    songListFile = open(songListPath)
+    songList = json.load(songListFile)
+    pygame.mixer.music.set_volume(songList[songIndex]['volume'])
+    songListFile.close()
     drum = pygame.mixer.Sound(soundDrumName)
     startTime = 0
 
@@ -210,7 +212,7 @@ def main(_cap, _tracker):
     pygame.mixer.music.play(0, musicStartAt / 1000)
     startTime = pygame.time.get_ticks()
     print("Play music...")
-    file = open(fileName)
+    file = open(sheetMusicName)
     dataArr = json.load(file)
 
     # distance to move
@@ -291,7 +293,7 @@ def main(_cap, _tracker):
             file.close()
             songListFile = open(songListPath)
             songList = json.load(songListFile)
-            ResultScene.StartResultScene(screen, cap, tracker, songList[songIndex]['name'], perfect, miss)
+            ResultScene.StartResultScene(screen, cap, tracker, songIndex, perfect, miss)
             songListFile.close()
             return 0
 
@@ -303,7 +305,7 @@ def main(_cap, _tracker):
     file.close()
     songListFile = open(songListPath)
     songList = json.load(songListFile)
-    ResultScene.StartResultScene(screen, cap, tracker, songList[songIndex]['name'], perfect, miss)
+    ResultScene.StartResultScene(screen, cap, tracker, songIndex, perfect, miss)
     songListFile.close()
     return 0
 

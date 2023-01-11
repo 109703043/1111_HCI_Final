@@ -1,14 +1,17 @@
 [
     {
         "name": "Monster",
-        "author": "YOASOBI"
+        "author": "YOASOBI",
+        "volume": 1
     },
     {
         "name": "KICK BACK",
-        "author": "Kenshi Yonezu"
+        "author": "Kenshi Yonezu",
+        "volume": 0.3
     },
     {
         "name": "Fluorite Eyes' Song",
-        "author": "Vivy"
+        "author": "Vivy",
+        "volume": 1
     }
 ]
