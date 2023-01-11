@@ -31,16 +31,6 @@ SPEED = 20
 
 
 
-def test_buttons(_screen):
-    # 測試用，若想停用這個按鈕直接註解掉 function 內容 (不含 def & return 0) 這兩行即可。
-    # skip_btn = pygame.image.load(_skip_btn)
-    # skip_btn = pygame.transform.smoothscale(skip_btn, (width*0.1, height*0.1))
-    # skip = button.Button(width*0.1, height*0.1, skip_btn)
-    # if(skip.draw(_screen)):
-    #     return -1
-    return 0
-
-
 def GenerateMovingNote(noteNum, handpicRect):
     global speed
     position = movingNote.get_rect()
@@ -49,19 +39,19 @@ def GenerateMovingNote(noteNum, handpicRect):
     # the final position of each movingNote
     if noteNum == 0:  # up
         x, y = x, y - NOTE_SIZE - MOVINGNOTE_SIZE / 2
-        speed = [0, SPEED]
+        speed = [0, SPEED*0.8]
         position.center = (x, 0)
     elif noteNum == 1:  # left
         x, y = x - NOTE_SIZE - MOVINGNOTE_SIZE / 2, y
-        speed = [SPEED, 0]
+        speed = [SPEED*1.5, 0]
         position.center = (0, y)
     elif noteNum == 2:  # right
         x, y = x + NOTE_SIZE - MOVINGNOTE_SIZE / 2, y
-        speed = [-SPEED, 0]
+        speed = [-SPEED*1.5, 0]
         position.center = (width, y)
     elif noteNum == 3:  # down
         x, y = x, y + NOTE_SIZE - MOVINGNOTE_SIZE / 2
-        speed = [0, -SPEED]
+        speed = [0, -SPEED*0.8]
         position.center = (x, height)
 
     run = True
@@ -89,10 +79,6 @@ def GenerateMovingNote(noteNum, handpicRect):
         screen.blit(text_perfect, text_P_Rect)
         screen.blit(text_miss, text_M_Rect)
         screen.blit(movingNote, position)
-
-        # 測試用
-        if(test_buttons(screen) == -1):
-            return -1
 
         pygame.display.update()         
         if noteNum == 0:
